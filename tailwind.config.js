@@ -25,6 +25,9 @@ export default {
         expore: 'E8E9EB',
         alert: 'FF4040',
       },
+      fontFamily: {
+        'patrick-hand': ['Patrick Hand', 'cursive'],
+      },
     },
   },
   variants: {
