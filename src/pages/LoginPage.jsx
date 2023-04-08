@@ -16,7 +16,7 @@ const LoginPage = () => {
               Log In
             </h1>
             <div className="mt-12 text-sm font-display font-semibold text-[#313131] text-center">
-              Already a member?{' '}
+              New to this site?{' '}
               <a className="cursor-pointer text-[#de7d60] hover:text-gray-700">
                 Sign Up
               </a>
