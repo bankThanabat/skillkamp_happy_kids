@@ -19,5 +19,7 @@ module.exports = {
   ],
   'rules': {
     'max-len': 'off',
+    'require-jsdoc': 'off',
+    'object-curly-spacing': 'off',
   },
 };
