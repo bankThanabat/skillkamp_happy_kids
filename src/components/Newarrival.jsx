@@ -1,7 +1,6 @@
-import React from 'react'
-import Product from './product/Product'
-import ProductList from './product/ProductList'
-import PrimaryButton from './buttons/PrimaryButton'
+import React from 'react';
+import ProductList from './product/ProductList';
+import PrimaryButton from './buttons/PrimaryButton';
 
 const Newarrival = () => {
   return (
@@ -12,7 +11,7 @@ const Newarrival = () => {
         <PrimaryButton />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Newarrival
+export default Newarrival;

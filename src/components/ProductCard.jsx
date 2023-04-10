@@ -1,17 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ProductCard = ({product}) => {
+const ProductCard = ({ product }) => {
   return (
     <div className="border rounded p-4">
       <img
-        src={product.image}
-        alt={product.name}
+        src={product?.image ?? ''}
+        alt={product?.name ?? ''}
         className="w-full h-48 object-cover mb-4"
       />
-      <Link to={`/product/${product.id}`} className="font-bold text-lg">
-        {product.name}
+      <Link to={`/product/${product?.id ?? ''}`} className="font-bold text-lg">
+        {product?.name ?? ''}
       </Link>
       <div className="text-gray-700">${product.price.toFixed(2)}</div>
     </div>

@@ -5,9 +5,13 @@ import ProductListPage from './pages/ProductListPage';
 import ProductInfoPage from './pages/ProductInfoPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import PaymentSummaryPage from './pages/PaymentSummaryPage';
+import ShopCollentionPage from './pages/ShopCollectionPage';
+import OurStoryPage from './pages/OurStoryPage';
+import ContactPage from './pages/ContactPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import PropTypes from 'prop-types';
+import Footer from './components/Footer';
 
 
 const routes = [
@@ -17,44 +21,72 @@ const routes = [
     exact: true,
     component: ProductListPage,
     isShowNavbar: true,
+    isShowFooter: true,
   },
   {
     id: 2,
     path: '/product/:id',
     component: ProductInfoPage,
     isShowNavbar: true,
+    isShowFooter: true,
   },
   {
     id: 3,
     path: '/cart',
     component: ShoppingCartPage,
     isShowNavbar: true,
+    isShowFooter: true,
   },
   {
     id: 4,
     path: '/payment',
     component: PaymentSummaryPage,
     isShowNavbar: true,
+    isShowFooter: true,
   },
   {
     id: 5,
     path: '/login',
     component: LoginPage,
     isShowNavbar: false,
+    isShowFooter: false,
   },
   {
     id: 6,
     path: '/signup',
     component: SignupPage,
     isShowNavbar: false,
+    isShowFooter: false,
+  },
+  {
+    id: 7,
+    path: '/shopcollection',
+    component: ShopCollentionPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 8,
+    path: '/ourstory',
+    component: OurStoryPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 9,
+    path: '/contact',
+    component: ContactPage,
+    isShowNavbar: true,
+    isShowFooter: true,
   },
 ];
 
-const Page = ({ isShowNavbar, component }) => {
+const Page = ({ isShowNavbar, component, isShowFooter }) => {
   return (
     <>
       {isShowNavbar && <Navbar />}
       {component}
+      {isShowFooter && <Footer />}
     </>
   );
 };
@@ -68,7 +100,7 @@ const AppRoutes = () => {
             key={route.id}
             exact={route.exact}
             path={route.path}
-            element={<Page isShowNavbar={route.isShowNavbar} component={<route.component />} />}
+            element={<Page isShowNavbar={route.isShowNavbar} isShowFooter={route.isShowFooter} component={<route.component />} />}
           />
         ))}
       </Routes>
@@ -79,6 +111,7 @@ const AppRoutes = () => {
 Page.propTypes = {
   isShowNavbar: PropTypes.bool,
   component: PropTypes.element,
+  isShowFooter: PropTypes.bool,
 };
 
 export default AppRoutes;
