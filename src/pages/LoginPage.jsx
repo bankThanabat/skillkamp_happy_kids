@@ -3,6 +3,8 @@ import { ReactComponent as Googleicon } from '../assets/icons/Sticky social icon
 import { ReactComponent as Fbicon } from '../assets/icons/Sticky social icons/facebookicon.svg';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api/authAPI';
+import { useDispatch } from 'react-redux';
+import { actionTypes } from '../store/action.type';
 
 const LoginPage = () => {
   const history = useNavigate();
@@ -10,8 +12,17 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const dispatch = useDispatch();
+
+  const loginSuccessHandler = (user) => {
+    localStorage.setItem('token', user?.data?.detail?.Token ?? '');
+    localStorage.setItem('name', user?.data?.detail?.Name ?? '');
+    dispatch({ type: actionTypes.set_user, payload: user?.data?.detail });
+    history('/home');
+    console.log('user', 'run');
+  };
+
   const onLogin = async (event) => {
-    console.log('run');
     event.preventDefault();
     try {
       const user = await login({
@@ -31,14 +42,10 @@ const LoginPage = () => {
           setErrorMessage('Internal Server Error');
           break;
         case 200:
-          localStorage.setItem('token', user?.data?.detail?.Token ?? '');
-          localStorage.setItem('name', user?.data?.detail?.Name ?? '');
-          history('/');
+          loginSuccessHandler(user);
           break;
         default:
-          localStorage.setItem('token', user?.data?.detail?.Token ?? '');
-          localStorage.setItem('name', user?.data?.detail?.Name ?? '');
-          history('/');
+          loginSuccessHandler(user);
           break;
 
         // handle other response status codes here

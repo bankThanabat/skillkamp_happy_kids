@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import React, { useState } from 'react';
-import productpic from '../../assets/products/Product10.png';
 import Modal from 'react-modal';
 import ProductModal from './ProductModal';
 import { productType } from '../../prop-interface/product.type';
@@ -43,7 +42,7 @@ const Product = ({ dat }) => {
           <p className="absolute top-0 left-0 bg-[#D2461C] px-2 py-1 text-white text-[14px] ">
             SALE
           </p>
-          <img className="" src={productpic} />
+          <img className="" src={dat?.media[0]?.url ?? ''} />
           <div
             className={`${hover ?
               'bottom-10 ease-in duration-300' :

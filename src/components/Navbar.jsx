@@ -8,7 +8,8 @@ import { useSelector } from 'react-redux';
 
 const Navbar = (props) => {
   const { toggleCart } = props;
-  const cart = useSelector((state) => state.cart);
+  const numOfProductsInCart = useSelector((state) => state.numOfProductsInCart);
+
   const menu = [{
     id: 0,
     name: 'Home',
@@ -60,7 +61,7 @@ const Navbar = (props) => {
                 <button onClick={toggleCart} className="flex gap-2 items-center">
                   <Icon type={IconType.cart} />
                   <div className="w-[18px] aspect-square rounded-full bg-black text-white flex items-center justify-center text-[10px]">
-                    {cart && (cart?.length ?? 0)}
+                    {numOfProductsInCart ?? 0}
                   </div>
                 </button>
               </div>

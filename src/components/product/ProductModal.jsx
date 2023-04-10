@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import product10 from '../../assets/products/Product10.png';
 import AddtoCart from '../buttons/AddtoCart';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { actionTypes } from '../../store/action.type';
+import { addItemToCart } from '../../api/cartAPI';
 
 const ProductModal = ({ pdata }) => {
   const dispatch = useDispatch();
@@ -13,15 +13,28 @@ const ProductModal = ({ pdata }) => {
   };
   const history = useNavigate();
   const [color, setColor] = useState('');
+
+  const addToCart = async () => {
+    await addItemToCart({
+      sku: '00001',
+      name: pdata?.name ?? '',
+      price: pdata?.price ?? null,
+      discountedPrice: pdata?.discountedPrice ?? null,
+      color: color,
+      size: '',
+      qty: pdata?.qty ?? 1,
+    });
+  };
+
   return (
     <div className="relative p-6 flex-auto">
       <div className="grid grid-cols-2">
-        <img className="" src={product10} />
+        <img className="" src={pdata?.media[0]?.url ?? ''} />
         <div>
           <br></br>
           <p className="text-[20px]  top-0 left-0 pb-3">{pdata?.name ?? ''}</p>
           <p className="text-[20px]  top-0 left-0 pb-3">{pdata?.price ?? ''}</p>
-          <p className="text-[15px]  top-0 left-0 pb-3">{pdata?.id ?? ''}</p>
+          <p className="text-[15px]  top-0 left-0 pb-3">{`sku: ${pdata?.sku ?? ''}`}</p>
           <p className="w-full text-[15px]  top-0 left-0 pb-3">
             Color : {color}{' '}
           </p>
@@ -54,7 +67,8 @@ const ProductModal = ({ pdata }) => {
               value={1}
             ></input>
           </div>
-          <div className="bottom-0 pb-3" onClick={() => {
+          <div className="bottom-0 pb-3" onClick={async () => {
+            await addToCart();
             dispatch({ type: actionTypes.add_cart_item, payload: pdata });
           }}>
             <AddtoCart />

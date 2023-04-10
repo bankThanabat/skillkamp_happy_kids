@@ -4,22 +4,29 @@ import { actionTypes } from './action.type';
 
 const initialState = {
   cart: [],
+  numOfProductsInCart: 0,
+  isLoggedin: false,
   user: {},
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    // Handle actions
     case actionTypes.add_cart_item:
       return {
         ...state,
         cart: [...state.cart, action.payload],
+        numOfProductsInCart: state.numOfProductsInCart + 1,
       };
-      break;
     case actionTypes.remove_cart_item:
       return {
         ...state,
         cart: state.cart.filter((e) => e.id !== action.payload),
+      };
+    case actionTypes.set_user:
+      return {
+        ...state,
+        isLoggedin: true,
+        user: action.payload,
       };
     default:
       return state;
