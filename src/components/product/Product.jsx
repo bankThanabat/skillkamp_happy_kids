@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import productpic from '../../assets/products/Product10.png';
 import Modal from 'react-modal';
 import ProductModal from './ProductModal';
-import PropTypes from 'prop-types';
+import { productType } from '../../prop-interface/product.type';
 
 
 const Product = ({ dat }) => {
@@ -54,8 +54,8 @@ const Product = ({ dat }) => {
             <p className="text-center pb-1 absolute w-full ">Quick View</p>
           </div>
         </div>
-        <p className="text-center pb-1 bg-white w-full z-10">{dat.name}</p>
-        <p className="text-center pb-1 z-10">{dat.price}</p>
+        <p className="text-center pb-1 bg-white w-full z-10">{dat?.name ?? ''}</p>
+        <p className="text-center pb-1 z-10">{dat?.price ?? ''}</p>
         <button
           className="w-full py-3 border bg-white text-black"
           onClick={() => openModal()}
@@ -81,7 +81,11 @@ const Product = ({ dat }) => {
 };
 
 Product.propTypes = {
-  dat: PropTypes.object,
+  dat: productType,
+};
+
+Product.defaultProps = {
+  dat: {},
 };
 
 export default Product;

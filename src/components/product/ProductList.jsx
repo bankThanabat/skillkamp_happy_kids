@@ -1,11 +1,12 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Product from './Product';
 import { IconType } from '../../enum/icon.enum';
 import Icon from '../icon/Icon';
 import PropTypes from 'prop-types';
+import { productArrayType } from '../../prop-interface/product.type';
 
 
 export const Dataproduct = [
@@ -83,7 +84,29 @@ export const Dataproduct = [
   },
 ];
 
-const ProductList = () => {
+const CustomLeftArrow = ({ onClick }) => {
+  return (
+    <button
+      className="w-[50px] h-[50px] z-50 absolute left-5"
+      onClick={() => onClick()}
+    >
+      <Icon type={IconType.chevronLeft} />
+    </button>
+  );
+};
+
+const CustomRightArrow = ({ onClick }) => {
+  return (
+    <button
+      className="w-[50px] h-[50px] z-50 absolute right-0"
+      onClick={() => onClick()}
+    >
+      <Icon type={IconType.chevronRight} />
+    </button>
+  );
+};
+
+const ProductList = ({ products }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 4500, min: 1024 },
@@ -102,27 +125,10 @@ const ProductList = () => {
     },
   };
 
-  const CustomLeftArrow = ({ onClick }) => {
-    return (
-      <button
-        className="w-[50px] h-[50px] z-50 absolute left-5"
-        onClick={() => onClick()}
-      >
-        <Icon type={IconType.chevronLeft} />
-      </button>
-    );
-  };
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
 
-  const CustomRightArrow = ({ onClick }) => {
-    return (
-      <button
-        className="w-[50px] h-[50px] z-50 absolute right-0"
-        onClick={() => onClick()}
-      >
-        <Icon type={IconType.chevronRight} />
-      </button>
-    );
-  };
   return (
     <div className="w-full ">
       <Carousel
@@ -141,12 +147,28 @@ const ProductList = () => {
         customTransition="all .5"
         containerClass="carousel-container px-10"
       >
-        {Dataproduct.filter((e) => e.isActive).map((e) => (
+        {products.map((e) => (
           <Product key={e.id} dat={e} />
         ))}
       </Carousel>
     </div>
   );
+};
+
+ProductList.propTypes = {
+  products: productArrayType,
+};
+
+CustomLeftArrow.propTypes = {
+  onClick: PropTypes.func,
+};
+
+CustomRightArrow.propTypes = {
+  onClick: PropTypes.func,
+};
+
+ProductList.defaultProps = {
+  products: [],
 };
 
 
