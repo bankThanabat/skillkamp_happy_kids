@@ -79,6 +79,14 @@ const routes = [
     isShowNavbar: true,
     isShowFooter: true,
   },
+  {
+    id: 10,
+    path: '/home',
+    exact: true,
+    component: ProductListPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
 ];
 
 const Page = ({ isShowNavbar, component, isShowFooter }) => {

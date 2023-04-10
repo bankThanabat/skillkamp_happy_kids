@@ -13,8 +13,8 @@ const signup = async ({ fullname, email, password }) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
-  }
+    return error;
+  };
 };
 
 const login = async ({ email, password }) => {
@@ -29,7 +29,7 @@ const login = async ({ email, password }) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
