@@ -24,8 +24,21 @@ const getProductsNewArrivals = async () => {
   }
 };
 
+const getProductsBySKU = async ({ sku }) => {
+  try {
+    const response = await api({
+      method: 'get',
+      url: `/products/details/${sku.toString().padStart(5, '0')}`,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 export {
   getProducts,
   getProductsNewArrivals,
+  getProductsBySKU,
 };

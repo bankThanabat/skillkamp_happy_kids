@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Branner from '../components/Branner';
 import Newarrival from '../components/Newarrival';
 import ModalCartPage from './ModalCartPage';
-import { getProductsNewArrivals } from '../api/productAPI';
+import { getProductsNewArrivals, getProductsBySKU } from '../api/productAPI';
 
 const ProductListPage = () => {
   const [cartVisible, setCartVisible] = useState(false);
@@ -12,13 +12,19 @@ const ProductListPage = () => {
     setCartVisible(!cartVisible);
   };
 
-  const fetchData = async () => {
+  const fetchNewArraivalProducts = async () => {
     const response = await getProductsNewArrivals();
     setNewArrivals(response?.data?.detail?.data?.catalog?.category?.productsWithMetaData?.list ?? []);
   };
 
+  const fetchProductDetail = async () => {
+    const response = await getProductsBySKU({ sku: 1 });
+    console.log(response);
+  };
+
   useEffect(() => {
-    fetchData();
+    fetchNewArraivalProducts();
+    fetchProductDetail();
   }, []);
 
   return (
