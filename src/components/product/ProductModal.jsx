@@ -3,8 +3,11 @@ import product10 from '../../assets/products/Product10.png';
 import AddtoCart from '../buttons/AddtoCart';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { actionTypes } from '../../store/action.type';
 
 const ProductModal = ({ pdata }) => {
+  const dispatch = useDispatch();
   const showId = (pdata) => {
     history('/home/product', { state: pdata });
   };
@@ -51,7 +54,9 @@ const ProductModal = ({ pdata }) => {
               value={1}
             ></input>
           </div>
-          <div className="bottom-0 pb-3">
+          <div className="bottom-0 pb-3" onClick={() => {
+            dispatch({ type: actionTypes.add_cart_item, payload: pdata });
+          }}>
             <AddtoCart />
           </div>
           <p onClick={() => showId(pdata)}>{'View more details'}</p>

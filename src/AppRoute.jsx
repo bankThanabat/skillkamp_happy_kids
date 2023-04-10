@@ -12,6 +12,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import PropTypes from 'prop-types';
 import Footer from './components/Footer';
+import StorePolicyPage from './pages/StorePolicyPage';
+import FAQPage from './pages/FAQPage';
+import ShippingPage from './pages/ShippingPage';
 
 
 const routes = [
@@ -84,6 +87,46 @@ const routes = [
     path: '/home',
     exact: true,
     component: ProductListPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 11,
+    path: '/storepolicy',
+    exact: true,
+    component: StorePolicyPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 12,
+    path: '/storepolicy',
+    exact: true,
+    component: StorePolicyPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 13,
+    path: '/paymentmethod',
+    exact: true,
+    component: StorePolicyPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 13,
+    path: '/faq',
+    exact: true,
+    component: FAQPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 14,
+    path: '/shipping',
+    exact: true,
+    component: ShippingPage,
     isShowNavbar: true,
     isShowFooter: true,
   },

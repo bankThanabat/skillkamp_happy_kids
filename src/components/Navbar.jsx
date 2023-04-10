@@ -4,9 +4,11 @@ import { Outlet, Link } from 'react-router-dom';
 import Icon from './icon/Icon';
 import { IconType } from '../enum/icon.enum';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const Navbar = (props) => {
   const { toggleCart } = props;
+  const cart = useSelector((state) => state.cart);
   const menu = [{
     id: 0,
     name: 'Home',
@@ -58,7 +60,7 @@ const Navbar = (props) => {
                 <button onClick={toggleCart} className="flex gap-2 items-center">
                   <Icon type={IconType.cart} />
                   <div className="w-[18px] aspect-square rounded-full bg-black text-white flex items-center justify-center text-[10px]">
-                    0
+                    {cart && (cart?.length ?? 0)}
                   </div>
                 </button>
               </div>

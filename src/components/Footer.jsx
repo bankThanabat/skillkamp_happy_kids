@@ -3,9 +3,10 @@ import React from 'react';
 import { ReactComponent as FbLogo } from '../assets/icons/social icons/facebook-svgrepo-com.svg';
 import { ReactComponent as PrLogo } from '../assets/icons/social icons/pinterest-svgrepo-com.svg';
 import { ReactComponent as IgLogo } from '../assets/icons/social icons/instagram-svgrepo-com.svg';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+    const history = useNavigate();
     const fMenu = [{
         id: 0,
         name: 'Home',
@@ -15,7 +16,7 @@ const Footer = () => {
     {
         id: 1,
         name: 'Shop Collection',
-        path: '/',
+        path: '/shopcollection',
         isActive: true,
     }, {
         id: 2,
@@ -25,30 +26,36 @@ const Footer = () => {
     }, {
         id: 3,
         name: 'Contact',
-        path: '/',
+        path: '/contact',
         isActive: true,
     }, {
         id: 4,
         name: 'Shipping&Return',
-        path: '/',
+        path: '/shipping',
         isActive: true,
     }, {
         id: 5,
         name: 'Store Policy',
-        path: '/',
+        path: '/storepolicy',
+        content: 0,
         isActive: true,
     }, {
         id: 6,
         name: 'Payment Methods',
-        path: '/',
+        path: '/paymentmethod',
+        content: 1,
         isActive: true,
     }, {
         id: 7,
         name: 'FAQ',
-        path: '/',
+        path: '/faq',
         isActive: true,
     },
     ];
+    const navigateTo = (path, content) => {
+        history(path, { state: content });
+    };
+
     return (
         <div className="Footer">
             <Outlet />
@@ -66,7 +73,7 @@ const Footer = () => {
                     <div className='grid justify-start'><IgLogo className='w-[40px] h-[40px]' /></div>
                 </div>
                 <div className="grid grid-rows-4 grid-flow-col gap-4 justify-start">
-                    {fMenu.filter((e, id) => e.isActive && id >= 4).map((e) => <p key={e.id} className="text-xl font-patrick-hand font-light"><Link to={e.path}> {e.name} </Link></p>)}
+                    {fMenu.filter((e, id) => e.isActive && id >= 4).map((e) => <p key={e.id} className="text-xl font-patrick-hand font-light" onClick={() => navigateTo(e.path, e.content)}> {e.name} </p>)}
                 </div>
             </div>
             <div className="w-full h-[8vh] bg-white flex justify-center items-center">
