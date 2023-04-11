@@ -12,8 +12,8 @@ const Navbar = (props) => {
   const [cartVisible, setCartVisible] = useState(false);
   const numOfProductsInCart = useSelector((state) => state.numOfProductsInCart);
   const isLoggedin = useSelector((state) => state.isLoggedin ?? false);
+  const user = useSelector((state) => state.user);
   const history = useNavigate();
-
   const toggleCart = () => {
     setCartVisible(!cartVisible);
   };
@@ -56,7 +56,9 @@ const Navbar = (props) => {
               <Menu as="div" className='z-10'>
                 <Menu.Button>
                   <div className='flex gap-2 items-center'>
-                    <div className='w-[25px] aspect-square rounded-full bg-black text-white flex items-center justify-center '>B</div>
+                    <div className='w-[25px] aspect-square rounded-full bg-black text-white flex items-center justify-center '>
+                      {user?.Name ? user?.Name?.charAt(0).toUpperCase() : ''}
+                    </div>
                     <Icon type={IconType.chevronDown} />
                   </div>
                 </Menu.Button>
@@ -124,7 +126,7 @@ const Navbar = (props) => {
                 </Menu.Items>
               </Menu>
               <div className="col-span-1  flex items-center justify-start gap-5 font-patrick-hand">
-                {isLoggedin ? (
+                {!isLoggedin ? (
                   <Link to="/login">
                     <div className="flex gap-2 items-center">
                       <Icon className="w-[30px] h-[30px]" type={IconType.user} />

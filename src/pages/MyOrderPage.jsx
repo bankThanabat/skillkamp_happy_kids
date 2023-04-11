@@ -38,7 +38,11 @@ const MyOrderPage = () => {
     <div className='w-[60%] m-auto flex gap-10 py-10'>
       <div className='flex flex-col w-[30%] gap-10'>
         <div className='relative flex flex-col px-3 py-10 items-center justify-center gap-5 border'>
-          <img src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' className='w-[90px] aspect-square rounded-full' />
+          <div className='flex gap-2 items-center'>
+            <div className='w-[100px] aspect-square rounded-full bg-black text-white flex items-center justify-center text-4xl'>
+              {user?.Name ? user?.Name?.charAt(0).toUpperCase() : ''}
+            </div>
+          </div>
           <p className='font-light text-sm'>{user?.name ?? ''}</p>
           <BsThreeDotsVertical className="absolute  top-5 right-5" />
         </div>

@@ -15,11 +15,10 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const loginSuccessHandler = (user) => {
+    dispatch({ type: actionTypes.set_user, payload: user?.data?.detail });
     localStorage.setItem('token', user?.data?.detail?.Token ?? '');
     localStorage.setItem('name', user?.data?.detail?.Name ?? '');
-    dispatch({ type: actionTypes.set_user, payload: user?.data?.detail });
     history('/home');
-    console.log('user', 'run');
   };
 
   const onLogin = async (event) => {
