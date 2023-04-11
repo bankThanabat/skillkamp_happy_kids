@@ -1,14 +1,20 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import Icon from './icon/Icon';
 import { IconType } from '../enum/icon.enum';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { Menu } from '@headlessui/react';
+import ModalCartPage from '../pages/ModalCartPage';
 
 const Navbar = (props) => {
-  const { toggleCart } = props;
+  const [cartVisible, setCartVisible] = useState(false);
   const numOfProductsInCart = useSelector((state) => state.numOfProductsInCart);
+
+  const toggleCart = () => {
+    setCartVisible(!cartVisible);
+  };
 
   const menu = [{
     id: 0,
@@ -45,10 +51,40 @@ const Navbar = (props) => {
               } className="text-xl font-patrick-hand font-light"> <Link to={e.path}> {e.name} </Link> </p>)}
             </div>
             <div className='col-span-1  flex items-center justify-start gap-5'>
-              <div className='flex gap-2 items-center'>
-                <div className='w-[25px] aspect-square rounded-full bg-black text-white flex items-center justify-center '>B</div>
-                <Icon type={IconType.chevronDown} />
-              </div>
+              <Menu as="div">
+                <Menu.Button>
+                  <div className='flex gap-2 items-center'>
+                    <div className='w-[25px] aspect-square rounded-full bg-black text-white flex items-center justify-center '>B</div>
+                    <Icon type={IconType.chevronDown} />
+                  </div>
+                </Menu.Button>
+                <Menu.Items className={`mt-2 border bg-white px-3 py-2 absolute w-auto flex flex-col`}>
+                  <Menu.Item>
+                    <a
+
+                      href="/order"
+                    >
+                      My Orders
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <a
+
+                      href="/account-settings"
+                    >
+                      Documentationa
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <a
+
+                      href="/account-settings"
+                    >
+                      Documentationa
+                    </a>
+                  </Menu.Item>
+                </Menu.Items>
+              </Menu>
               <div className="col-span-1  flex items-center justify-start gap-5 font-patrick-hand">
                 <Link to="/login">
                   <div className="flex gap-2 items-center">
@@ -58,7 +94,7 @@ const Navbar = (props) => {
                     </div>
                   </div>
                 </Link>
-                <button onClick={toggleCart} className="flex gap-2 items-center">
+                <button onClick={() => toggleCart()} className="flex gap-2 items-center">
                   <Icon type={IconType.cart} />
                   <div className="w-[18px] aspect-square rounded-full bg-black text-white flex items-center justify-center text-[10px]">
                     {numOfProductsInCart ?? 0}
@@ -72,6 +108,7 @@ const Navbar = (props) => {
       <hr className="h-px mt-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
       <Outlet />
       {/* <ModalCartPage/> */}
+      {cartVisible && <ModalCartPage hideCart={toggleCart} />}
     </>
   );
 };

@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import StorePolicyPage from './pages/StorePolicyPage';
 import FAQPage from './pages/FAQPage';
 import ShippingPage from './pages/ShippingPage';
+import MyOrderPage from './pages/MyOrderPage';
 
 
 const routes = [
@@ -127,6 +128,14 @@ const routes = [
     path: '/shipping',
     exact: true,
     component: ShippingPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
+  {
+    id: 14,
+    path: '/order',
+    exact: true,
+    component: MyOrderPage,
     isShowNavbar: true,
     isShowFooter: true,
   },
