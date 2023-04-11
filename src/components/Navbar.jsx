@@ -11,6 +11,7 @@ import ModalCartPage from '../pages/ModalCartPage';
 const Navbar = (props) => {
   const [cartVisible, setCartVisible] = useState(false);
   const numOfProductsInCart = useSelector((state) => state.numOfProductsInCart);
+  const isLoggedin = useSelector((state) => state.isLoggedin);
 
   const toggleCart = () => {
     setCartVisible(!cartVisible);
@@ -50,8 +51,8 @@ const Navbar = (props) => {
               {menu.filter((e) => e.isActive).map((e) => <p key={e.id
               } className="text-xl font-patrick-hand font-light"> <Link to={e.path}> {e.name} </Link> </p>)}
             </div>
-            <div className='col-span-1  flex items-center justify-start gap-5'>
-              <Menu as="div">
+            <div className='col-span-1  flex items-center justify-start gap-5 '>
+              <Menu as="div" className='z-10'>
                 <Menu.Button>
                   <div className='flex gap-2 items-center'>
                     <div className='w-[25px] aspect-square rounded-full bg-black text-white flex items-center justify-center '>B</div>
@@ -86,14 +87,16 @@ const Navbar = (props) => {
                 </Menu.Items>
               </Menu>
               <div className="col-span-1  flex items-center justify-start gap-5 font-patrick-hand">
-                <Link to="/login">
-                  <div className="flex gap-2 items-center">
-                    <Icon className="w-[30px] h-[30px]" type={IconType.user} />
-                    <div className="w-[60px] aspect-square rounded-full text-black flex items-center justify-center ">
-                      Log In
+                {isLoggedin ? (
+                  <Link to="/login">
+                    <div className="flex gap-2 items-center">
+                      <Icon className="w-[30px] h-[30px]" type={IconType.user} />
+                      <div className="w-[60px] aspect-square rounded-full text-black flex items-center justify-center ">
+                        Log In
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                ) : null}
                 <button onClick={() => toggleCart()} className="flex gap-2 items-center">
                   <Icon type={IconType.cart} />
                   <div className="w-[18px] aspect-square rounded-full bg-black text-white flex items-center justify-center text-[10px]">
