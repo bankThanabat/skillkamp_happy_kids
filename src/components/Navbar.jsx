@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import React, { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import Icon from './icon/Icon';
 import { IconType } from '../enum/icon.enum';
 import PropTypes from 'prop-types';
@@ -11,7 +11,8 @@ import ModalCartPage from '../pages/ModalCartPage';
 const Navbar = (props) => {
   const [cartVisible, setCartVisible] = useState(false);
   const numOfProductsInCart = useSelector((state) => state.numOfProductsInCart);
-  const isLoggedin = useSelector((state) => state.isLoggedin);
+  const isLoggedin = useSelector((state) => state.isLoggedin ?? false);
+  const history = useNavigate();
 
   const toggleCart = () => {
     setCartVisible(!cartVisible);
@@ -61,28 +62,64 @@ const Navbar = (props) => {
                 </Menu.Button>
                 <Menu.Items className={`mt-2 border bg-white px-3 py-2 absolute w-auto flex flex-col`}>
                   <Menu.Item>
-                    <a
-
-                      href="/order"
+                    <p
+                      className='hover:text-primary-main5'
+                      onClick={() => {
+                        history('/order', { state: { defaultTap: 1 } });
+                      }}
                     >
                       My Orders
-                    </a>
+                    </p>
                   </Menu.Item>
                   <Menu.Item>
-                    <a
-
-                      href="/account-settings"
+                    <p
+                      className='hover:text-primary-main5'
+                      onClick={() => {
+                        history('/order', { state: { defaultTap: 2 } });
+                      }}
                     >
-                      Documentationa
-                    </a>
+                      My Address
+                    </p>
                   </Menu.Item>
                   <Menu.Item>
-                    <a
-
-                      href="/account-settings"
+                    <p
+                      className='hover:text-primary-main5'
+                      onClick={() => {
+                        history('/order', { state: { defaultTap: 3 } });
+                      }}
                     >
-                      Documentationa
-                    </a>
+                      My Waltet
+                    </p>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <p
+                      className='hover:text-primary-main5'
+                      onClick={() => {
+                        history('/order', { state: { defaultTap: 4 } });
+                      }}
+                    >
+                      My Wishlist
+                    </p>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <p
+                      className='hover:text-primary-main5'
+                      onClick={() => {
+                        history('/order', { state: { defaultTap: 5 } });
+                      }}
+                    >
+                      My Subscriptions
+                    </p>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <p
+                      className='hover:text-primary-main5'
+                      onClick={() => {
+                        history('/order', { state: { defaultTap: 6 } });
+                      }}
+                    >
+                      My Accounts
+                    </p>
                   </Menu.Item>
                 </Menu.Items>
               </Menu>

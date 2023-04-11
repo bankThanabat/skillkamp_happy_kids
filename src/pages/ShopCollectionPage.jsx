@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductCollection from '../components/product/ProductCollection';
+import FilterProduct from '../components/product/FilterProduct';
 export const DataproductCollection = [
   {
     id: 0,
@@ -61,7 +62,7 @@ const ShopCollection = () => {
       <div className="grid-container grid grid-cols-11">
         <div className="col-span-2">
           <p className="left-1 text-[30px]">Filter by</p>
-
+          <FilterProduct />
         </div>
         <div className="col-span-9">
           <div className="grid grid-cols-3">
