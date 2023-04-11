@@ -6,23 +6,26 @@ import { useDispatch } from 'react-redux';
 import { actionTypes } from '../../store/action.type';
 import { addItemToCart } from '../../api/cartAPI';
 
-const ProductModal = ({ pdata }) => {
+const ProductModal = ({ pdata, closeModal }) => {
   const dispatch = useDispatch();
+  const [product, setProduct] = useState({ ...pdata } ?? {});
+
   const showId = (pdata) => {
-    history('/home/product', { state: pdata });
+    history(`/product-info/${pdata?.sku}`, { state: pdata });
   };
+
   const history = useNavigate();
   const [color, setColor] = useState('');
 
   const addToCart = async () => {
     await addItemToCart({
-      sku: '00001',
-      name: pdata?.name ?? '',
-      price: pdata?.price ?? null,
-      discountedPrice: pdata?.discountedPrice ?? null,
+      sku: product?.sku ?? '00001',
+      name: product?.name ?? '',
+      price: product?.price ?? null,
+      discountedPrice: product?.discountedPrice ?? null,
       color: color,
       size: '',
-      qty: pdata?.qty ?? 1,
+      qty: product?.qty ?? 1,
     });
   };
 
@@ -33,7 +36,7 @@ const ProductModal = ({ pdata }) => {
         <div>
           <br></br>
           <p className="text-[20px]  top-0 left-0 pb-3">{pdata?.name ?? ''}</p>
-          <p className="text-[20px]  top-0 left-0 pb-3">{pdata?.price ?? ''}</p>
+          <p className="text-[20px]  top-0 left-0 pb-3">{pdata?.formattedPrice ?? ''}</p>
           <p className="text-[15px]  top-0 left-0 pb-3">{`sku: ${pdata?.sku ?? ''}`}</p>
           <p className="w-full text-[15px]  top-0 left-0 pb-3">
             Color : {color}{' '}
@@ -63,17 +66,19 @@ const ProductModal = ({ pdata }) => {
           <div className="pb-5">
             <input
               type="number"
-              className=" border border-gray-300 w-[60px] h-[30px]"
-              value={1}
+              className=" border border-gray-300 w-[60px] h-[30px] text-center"
+              value={product?.qty ?? 1}
+              onChange={(e) => setProduct({ ...product, qty: e.target.value })}
             ></input>
           </div>
           <div className="bottom-0 pb-3" onClick={async () => {
             await addToCart();
-            dispatch({ type: actionTypes.add_cart_item, payload: pdata });
+            dispatch({ type: actionTypes.add_cart_item, payload: product });
+            closeModal();
           }}>
             <AddtoCart />
           </div>
-          <p onClick={() => showId(pdata)}>{'View more details'}</p>
+          <p onClick={() => showId(pdata)} className='underline'>{'View more details'}</p>
         </div>
       </div>
     </div>
@@ -82,6 +87,7 @@ const ProductModal = ({ pdata }) => {
 
 ProductModal.propTypes = {
   pdata: PropTypes.object,
+  closeModal: PropTypes.func,
 };
 
 export default ProductModal;

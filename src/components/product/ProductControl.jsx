@@ -1,24 +1,36 @@
 import React from 'react';
 import Icon from '../icon/Icon';
 import { IconType } from '../../enum/icon.enum';
+import PropTypes from 'prop-types';
 
-const ProductControl = () => {
+const ProductControl = ({ product, onDecreaseQty, onINcreaseQty }) => {
+  const [controledProduct, _] = React.useState({
+    ...product,
+    qty: parseInt(product?.qty ?? 1),
+  } ?? {});
   return (
-    <div className='flex gap-5'>
+    <div className='relative flex gap-5'>
+
       <div>
-        <img className='w-[80px] aspect-square' src='https://static.wixstatic.com/media/45d10e_c59544c57e0943fdab8d109f81174032~mv2.jpg/v1/fill/w_625,h_625,al_c,q_85,usm_0.66_1.00_0.01/45d10e_c59544c57e0943fdab8d109f81174032~mv2.webp' />
+        <img className='w-[80px] aspect-square' src={`${product?.media[0]?.url ?? ''}`} />
       </div>
       <div className='flex flex-col'>
         <p className='text-sm font-light'>{`I'm a product`}</p>
-        <p className='text-lg'>19,99₺</p>
+        <p className='text-lg'>{product?.formattedPrice ?? ''}</p>
         <div className='flex p-2 border text-sm font-light justify-between items-center'>
-          <Icon type={IconType.minus} />
-          0
-          <Icon type={IconType.plus} />
+          <Icon type={IconType.minus} onClick={() => onDecreaseQty(controledProduct)} />
+          {product?.qty ?? 1}
+          <Icon type={IconType.plus} onClick={() => onINcreaseQty(controledProduct)} />
         </div>
       </div>
     </div>
   );
+};
+
+ProductControl.propTypes = {
+  product: PropTypes.object,
+  onDecreaseQty: PropTypes.func,
+  onINcreaseQty: PropTypes.func,
 };
 
 export default ProductControl;

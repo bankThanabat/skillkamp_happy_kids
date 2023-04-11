@@ -143,8 +143,8 @@ const ProductList = ({ products }) => {
         customTransition="all .5"
         containerClass="carousel-container px-10"
       >
-        {products.map((e) => (
-          <Product key={e.id} dat={e} />
+        {products.map((e, i) => (
+          <Product key={i} dat={e} />
         ))}
       </Carousel>
     </div>

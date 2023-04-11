@@ -68,7 +68,7 @@ const Product = ({ dat }) => {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <ProductModal key={dat.id} pdata={dat} />
+          <ProductModal key={dat.id} pdata={dat} closeModal={closeModal} />
           <div className="grid grid-cols-2">
             <div>
             </div>

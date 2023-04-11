@@ -48,7 +48,7 @@ const ProductCollection = ({ dat }) => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <ProductModal />
+        <ProductModal pdata={dat} />
         <div className="grid grid-cols-2">
           <div>{/* <p>View more details</p> */}</div>
         </div>

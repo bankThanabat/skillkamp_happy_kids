@@ -24,8 +24,14 @@ const ProductListPage = () => {
   return (
     <div className="w-full h-full">
       <Branner />
-      <Newarrival products={newArrivals} />
-      {cartVisible && <ModalCartPage hideCart={toggleCart} />}
+      <div className="md:grid sm:grid-cols-2 gap-5 ">
+        <div className="pr-2 sm:col-span-2 ">
+          <Newarrival products={newArrivals} />
+        </div>
+        <div className="sm:pl-2">
+          {cartVisible && <ModalCartPage hideCart={toggleCart} />}
+        </div>
+      </div>
     </div>
   );
 };

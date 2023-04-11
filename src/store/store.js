@@ -22,6 +22,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         cart: state.cart.filter((e) => e.id !== action.payload),
       };
+
+    case actionTypes.update_cart_item:
+      const newCard = state.cart.map((item) => {
+        if (item.id == action.payload.id) {
+          return {
+            ...item,
+            ...action.payload,
+          };
+        }
+        return item;
+      });
+      return {
+        ...state,
+        cart: newCard,
+      };
+
     case actionTypes.set_user:
       return {
         ...state,

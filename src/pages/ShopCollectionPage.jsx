@@ -15,9 +15,6 @@ const ShopCollection = () => {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
   return (
     <div>
       <p className="text-center font-patrick-hand mx-[28vw] text-[30px]">
