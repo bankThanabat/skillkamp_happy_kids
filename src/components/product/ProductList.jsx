@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Product from './Product';
@@ -124,10 +124,6 @@ const ProductList = ({ products }) => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
 
   return (
     <div className="w-full ">

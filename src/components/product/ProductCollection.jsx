@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import productpic from '../../assets/products/Product3.png';
 import Modal from 'react-modal';
 import ProductModal from './ProductModal';
 import PropTypes from 'prop-types';
@@ -32,10 +31,10 @@ const ProductCollection = ({ dat }) => {
   return (
     <div className="w-[95%]">
       <div className="relative flex flex-col items-center justify-center">
-        <img className="" src={productpic} />
+        <img className="" src={dat?.media[0]?.url ?? ''} />
       </div>
       <p className="text-center pb-1 bg-white w-full z-10">{dat.name}</p>
-      <p className="text-center pb-1 z-10">{dat.price}</p>
+      <p className="text-center pb-1 z-10">{dat.formattedPrice ?? ''}</p>
       <button
         className="w-full py-3 border bg-white text-black"
         onClick={() => openModal()}

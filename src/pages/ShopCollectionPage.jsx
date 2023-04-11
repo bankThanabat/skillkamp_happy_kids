@@ -1,59 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCollection from '../components/product/ProductCollection';
 import FilterProduct from '../components/product/FilterProduct';
-export const DataproductCollection = [
-  {
-    id: 0,
-    name: 'ProductCollection1',
-    price: 100,
-    isActive: true,
-  },
-  {
-    id: 1,
-    name: 'ProductCollection2',
-    price: 100,
-    isActive: true,
-  },
-  {
-    id: 2,
-    name: 'ProductCollection3',
-    price: 100,
-    path: '/',
-    isActive: true,
-  },
-  {
-    id: 3,
-    name: 'pProductCollection4',
-    price: 100,
-    isActive: true,
-  },
-  {
-    id: 4,
-    name: 'ProductCollection5',
-    price: 100,
-    isActive: true,
-  },
-  {
-    id: 5,
-    name: 'ProductCollection6',
-    price: 100,
-    isActive: true,
-  },
-  {
-    id: 6,
-    name: 'ProductCollection7',
-    price: 100,
-    isActive: true,
-  },
-  {
-    id: 7,
-    name: 'ProductCollection8',
-    price: 100,
-    isActive: true,
-  },
-];
+import { getProducts } from '../api/productAPI';
 
 const ShopCollection = () => {
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    const response = await getProducts();
+    setProducts(response?.data?.detail?.data?.catalog?.category?.productsWithMetaData?.list ?? []);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
   return (
     <div>
       <p className="text-center font-patrick-hand mx-[28vw] text-[30px]">
@@ -66,7 +30,7 @@ const ShopCollection = () => {
         </div>
         <div className="col-span-9">
           <div className="grid grid-cols-3">
-            {DataproductCollection.filter((e) => e.isActive).map((e) => (
+            {products.map((e) => (
               <ProductCollection key={e.id} dat={e} />
             ))}
           </div>
