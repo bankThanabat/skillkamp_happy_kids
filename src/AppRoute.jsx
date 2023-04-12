@@ -147,6 +147,14 @@ const routes = [
     isShowNavbar: true,
     isShowFooter: true,
   },
+  {
+    id: 16,
+    path: '/shopping-cart',
+    exact: true,
+    component: ShoppingCartPage,
+    isShowNavbar: true,
+    isShowFooter: true,
+  },
 ];
 
 const Page = ({ isShowNavbar, component, isShowFooter }) => {
