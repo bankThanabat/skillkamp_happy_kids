@@ -53,9 +53,9 @@ const ShoppingCartPage = () => {
 
   return (
     <div>
-      <div className="w-3/5 flex gap-5 mx-auto mt-8">
-        <div className='w-[70%] flex flex-col'>
-          <div className='border-b border-neutral-500 py-5'>My cart</div>
+      <div className="w-full md:w-3/5 flex flex-col md:flex-row gap-5 mx-auto px-5 mt-8">
+        <div className='w-full md:w-[70%] flex flex-col'>
+          <div className='border-b border-neutral-500 py-5 text-center md:text-left'>My cart</div>
           {cart?.cart_list && cart?.cart_list?.map((product, i) => (
             <ProductCart
               key={i}
@@ -68,21 +68,21 @@ const ShoppingCartPage = () => {
             <p>Enter a promo code</p>
           </div>
           {code && <div className='w-full'>
-            <input className='py-3 px-2 border w-2/5 border-black' type='text' placeholder='Enter a promo code' />
-            <button className='py-3 px-2 w-1/5 text-red-500 border-red-500 border'>Apply</button>
+            <input className='py-3 px-2 border w-2/5 md:w-1/2 border-black' type='text' placeholder='Enter a promo code' />
+            <button className='py-3 px-2 w-1/5 md:w-1/3 text-red-500 border-red-500 border'>Apply</button>
           </div>}
           <div onClick={() => setNote(!note)} className='flex justify-start items-center py-5 text-red-500 gap-2 font-light cursor-pointer'>
             <Icon type={IconType.note} />
             <p>Add a note</p>
           </div>
           {note && <div className='w-full'>
-            <textarea className='py-3 px-2 border w-3/5 border-black' type='text' placeholder='Instructions? Special requests? Add them here.' />
+            <textarea className='py-3 px-2 border w-3/5 md:w-2/3 border-black' type='text' placeholder='Instructions? Special requests? Add them here.' />
 
           </div>}
 
         </div>
-        <div className='w-[30%] flex flex-col '>
-          <div className='border-b border-neutral-500 py-5'>Order summary</div>
+        <div className='w-full md:w-[30%] flex flex-col '>
+          <div className='border-b border-neutral-500 py-5 text-center md:text-left'>Order summary</div>
           <div className='flex flex-col border-b border-neutral-500 py-4'>
             <div className='flex justify-between py-3'>
               <p>Subtotal</p>
@@ -108,9 +108,9 @@ const ShoppingCartPage = () => {
             <p>Secure Checkout</p>
           </div>
         </div>
-        {/* Your shopping cart items and summary go here */}
       </div>
     </div>
+
   );
 };
 

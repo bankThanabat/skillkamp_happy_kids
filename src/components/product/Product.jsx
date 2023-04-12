@@ -67,6 +67,8 @@ const Product = ({ dat }) => {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
+          shouldCloseOnEsc={true}
+          shouldCloseOnOverlayClick={true}
           style={customStyles}
           contentLabel="Example Modal"
         >

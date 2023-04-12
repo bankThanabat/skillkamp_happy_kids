@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { actionTypes } from '../../store/action.type';
 import { addItemToCart } from '../../api/cartAPI';
 import { getProductsBySKU } from '../../api/productAPI';
+import Icon from '../icon/Icon';
+import { IconType } from '../../enum/icon.enum';
 
 const ProductModal = ({ pdata, closeModal }) => {
   const dispatch = useDispatch();
@@ -55,6 +57,7 @@ const ProductModal = ({ pdata, closeModal }) => {
 
   return (
     <div className="relative p-6 flex-auto">
+      <Icon type={IconType.minus} onClick={closeModal} className='absolute top-0 right-5 z-20' />
       <div className="grid grid-cols-2">
         <img className="" src={product?.media && (product?.media[0]?.fullUrl ?? '')} />
         <div>

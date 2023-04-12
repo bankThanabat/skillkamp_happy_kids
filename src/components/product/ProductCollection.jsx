@@ -47,6 +47,8 @@ const ProductCollection = ({ dat }) => {
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
+        shouldCloseOnEsc={true}
+        shouldCloseOnOverlayClick={true}
       >
         <ProductModal pdata={dat} closeModal={closeModal} />
         <div className="grid grid-cols-2">
