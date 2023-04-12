@@ -5,6 +5,7 @@ import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
   plugins: [react(), new WindiCSS(), svgr()],
+  base: '/skillkamp_happy_kids/',
   server: {
     proxy: {
       '/v1': {
