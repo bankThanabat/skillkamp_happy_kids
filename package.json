@@ -8,9 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
-    "lint": "eslint src --ext .js,.jsx --fix",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "lint": "eslint src --ext .js,.jsx --fix"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
