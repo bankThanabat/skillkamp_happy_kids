@@ -69,7 +69,7 @@ const Footer = () => {
                 <div className="flex flex-col gap-2 text-center font-light">
                     {fMenu.filter((e, id) => e.isActive && id <= 3).map((e) => <p key={e.id} className="font-patrick-hand"><Link to={e.path}> {e.name} </Link></p>)}
                 </div>
-                <div className='flex justify-center md:justify-start gap-8'>
+                <div className='flex justify-center item-center gap-8'>
                     <div className='grid justify-end'><FbLogo className='w-[20px] h-[20px]' /></div>
                     <div className='grid justify-center'><PrLogo className='w-[20px] h-[20px]' /></div>
                     <div className='grid justify-start'><IgLogo className='w-[20px] h-[20px]' /></div>
@@ -99,7 +99,7 @@ const Footer = () => {
                     Subscribe Now
                 </button>
             </div>
-            <div className="flex justify-center items-center mt-14 text-center md:text-left">© 2035 by happy kids. Powered and secured by Wix</div>
+            <div className="flex justify-center items-center mt-14 text-center md:text-left">© 2035 by happy kids. Powered and secured by thanabat</div>
         </div>
 
     );

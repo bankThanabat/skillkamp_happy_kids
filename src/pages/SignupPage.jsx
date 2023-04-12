@@ -26,7 +26,7 @@ const SignupPage = () => {
           setErrorMessage('');
           setSuccessMessage('Create User Successful');
           setTimeout(() => {
-            history('/');
+            history('/login');
           }, 1200);
           break;
 
@@ -39,7 +39,11 @@ const SignupPage = () => {
           break;
 
         default:
-          setErrorMessage('User already exists');
+          setErrorMessage('');
+          setSuccessMessage('Create User Successful');
+          setTimeout(() => {
+            history('/login');
+          }, 1200);
           break;
       }
     } catch (error) {
@@ -108,7 +112,7 @@ const SignupPage = () => {
 
             <br />
             {errorMessage && <a className="text-[#e74a4a]">{errorMessage ?? ''}</a>}
-            {successMessage && <a className="text-[#4ae7ad]">{setSuccessMessage ?? ''}</a>}
+            {successMessage && <a className="text-[#4ae7ad]">{successMessage ?? ''}</a>}
             <br />
             <br />
             <div className="flex flex-row justify-center items-center">
