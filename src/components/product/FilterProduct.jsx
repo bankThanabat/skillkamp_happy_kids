@@ -5,8 +5,9 @@ import { useState } from 'react';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import { getFilter } from '../../api/filter';
+import PropTypes from 'prop-types';
 
-const FilterProduct = () => {
+const FilterProduct = ({ setFilterOption }) => {
   const [showCollection, setShowCollection] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
   const [showColor, setShowColor] = useState(false);
@@ -27,8 +28,13 @@ const FilterProduct = () => {
   }, []);
 
   useEffect(() => {
-    console.log(filter);
+    console.log('filter', filter);
   }, [filter]);
+
+  useEffect(() => {
+    setFilterOption((prev) => ({ ...prev, price: `${price[0]}-${price[1]}` }));
+  }, [price]);
+
   return (
     <div className='flex flex-col items-center px-10 py-5 gap-3 bg-white'>
       <div className='py-5 border-b w-full'>
@@ -40,27 +46,34 @@ const FilterProduct = () => {
           <div onClick={() => {
             setShowCollection(!showCollection);
           }}>
-            {showCollection ? <Icon type={IconType.minus} className={'cursor-pointer'} /> : <Icon type={IconType.plus} className={'cursor-pointer'} />}
+            {showCollection ? <Icon type={IconType.minus} className={'cursor-pointer'} onClick={() => {
+              setShowCollection(!showCollection);
+            }} /> : <Icon type={IconType.plus} className={'cursor-pointer'} onClick={() => {
+              setShowCollection(!showCollection);
+            }} />}
 
           </div>
         </div>
         <div className={`${showCollection ? '  opacity-1 h-auto py-3' : 'opacity-0 py-0 h-0'}   w-full  transition-all duration-300 ease-in-out flex flex-col gap-1 font-light text-sm`}>
           {filter[0]?.values.map((e, i) => (
-            <p key={i} className={`font-light hover:text-neutral-600  cursor-pointer`}>{e?.value ?? ''}</p>
+            <p
+              key={i}
+              className={`font-light hover:text-neutral-600  cursor-pointer`}
+              onClick={() => setFilterOption((prev) => ({ ...prev, category: e?.value ?? null }))}>{e?.value ?? ''}</p>
           ))}
         </div>
       </div>
       <div className='py-5 border-b w-full flex flex-col justify-between '>
-        <div className='flex justify-between items-center'>
-          <p className="font-light">{filter[1]?.filterType ?? ''}</p>
-          <div onClick={() => {
-            setShowPrice(!showPrice);
-          }}>
+        <div className='flex justify-between items-center' onClick={() => {
+          setShowPrice(!showPrice);
+        }}>
+          <p className="font-light">{filter[0]?.filterType ?? ''}</p>
+          <div >
             {showPrice ? <Icon type={IconType.minus} className={'cursor-pointer'} /> : <Icon type={IconType.plus} className={'cursor-pointer'} />}
 
           </div>
         </div>
-        <div className={`${showPrice ? '  opacity-1 h-auto py-3' : 'opacity-0 py-0 h-0'}  w-full  transition-all duration-300 ease-in-out flex flex-col gap-1 font-light text-sm`}>
+        <div className={`${showPrice ? '  opacity-1 h-auto py-3' : 'opacity-0 py-0 h-0'}   w-full  transition-all duration-300 ease-in-out flex flex-col gap-1 font-light text-sm`}>
           <RangeSlider min={0} max={20} defaultValue={[0, 20]} onInput={(e) => setPrice(e)} className={' bg-primary-main1'} />
           <div className='flex justify-between'>
             <p>{price[0]} $</p>
@@ -81,9 +94,16 @@ const FilterProduct = () => {
 
           <div className={`flex gap-2 ${showColor ? '' : 'hidden'}`}>
             {filter[2]?.values?.map((e, i) => {
-              return (<div key={i} className={`rounded-full aspect-square w-[50px] p-[2px]`}>
-                <div className='hover:opacity-70 w-full h-full rounded-full cursor-pointer' style={{ backgroundColor: e.key }} onMouseEnter={() => setHoverColor(e.value)} onMouseLeave={() => setHoverColor('')}></div>
-              </div>);
+              return (
+                <div key={i} className={`rounded-full aspect-square w-[50px] p-[2px]`}>
+                  <div
+                    className='hover:opacity-70 w-full h-full rounded-full cursor-pointer'
+                    style={{ backgroundColor: e.key }}
+                    onMouseEnter={() => setHoverColor(e.value)}
+                    onMouseLeave={() => setHoverColor('')}
+                    onClick={() => setFilterOption((prev) => ({ ...prev, optionColor: e.key }))}>
+                  </div>
+                </div>);
             })}
           </div>
         </div>
@@ -100,7 +120,11 @@ const FilterProduct = () => {
         </div>
         <div className={`${showSize ? '  opacity-1 h-auto py-3' : 'opacity-0 py-0 h-0'}   w-full  transition-all duration-300 ease-in-out flex flex-col gap-1 font-light text-sm`}>
           {filter[3]?.values.map((e, i) => (
-            <p key={i} className={`font-light hover:text-neutral-600  cursor-pointer`}>{e?.value ?? ''}</p>
+            <p
+              key={i}
+              className={`font-light hover:text-neutral-600  cursor-pointer`}
+              onClick={() => setFilterOption((prev) => ({ ...prev, optionList: e.key }))}>
+              {e?.value ?? ''}</p>
           ))}
         </div>
       </div>
@@ -108,6 +132,10 @@ const FilterProduct = () => {
 
     </div>
   );
+};
+
+FilterProduct.propTypes = {
+  setFilterOption: PropTypes.func,
 };
 
 export default FilterProduct;

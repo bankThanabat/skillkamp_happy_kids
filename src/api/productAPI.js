@@ -1,10 +1,22 @@
+/* eslint-disable indent */
 import api from './api';
 
-const getProducts = async () => {
+const getProducts = async (
+  category = null,
+  price = null,
+  optionColor = null,
+  optionList = null,
+) => {
   try {
     const response = await api({
       method: 'get',
       url: '/products/',
+      params: {
+        CATEGORY: category,
+        PRICE: price,
+        OPTION_COLOR: optionColor,
+        OPTION_LIST: optionList,
+      },
     });
     return response;
   } catch (error) {
