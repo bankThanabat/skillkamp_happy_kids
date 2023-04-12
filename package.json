@@ -1,9 +1,9 @@
 {
   "name": "happy-kids",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
-  "homepage": "https://bankthanabat.github.io/skillkamp_happy_kids/",
+  "homepage": "https://bankthanabat.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
