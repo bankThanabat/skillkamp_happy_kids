@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://bankthanabat.github.io/skillkamp_happy_kids/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
-    "lint": "eslint src --ext .js,.jsx --fix"
+    "lint": "eslint src --ext .js,.jsx --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
@@ -45,6 +48,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^5.0.0",
     "jest": "^29.5.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1",
