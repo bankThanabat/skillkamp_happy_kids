@@ -17,16 +17,16 @@ const ShopCollection = () => {
 
   return (
     <div>
-      <p className="text-center font-patrick-hand mx-[28vw] text-[30px]">
+      <p className="text-center font-patrick-hand mx-auto md:mx-[28vw] text-3xl md:text-[30px]">
         ShopCollection
       </p>
-      <div className="grid-container grid grid-cols-11">
-        <div className="col-span-2">
-          <p className="left-1 text-[30px]">Filter by</p>
+      <div className="grid-container grid grid-cols-1 md:grid-cols-11">
+        <div className="col-span-1 md:col-span-2">
+          <p className="left-1 text-3xl md:text-[30px] ml-2">Filter by</p>
           <FilterProduct />
         </div>
-        <div className="col-span-9">
-          <div className="grid grid-cols-3">
+        <div className="col-span-1 md:col-span-9">
+          <div className="grid grid-cols-1 md:grid-cols-3">
             {products.map((e) => (
               <ProductCollection key={e.id} dat={e} />
             ))}
@@ -34,6 +34,7 @@ const ShopCollection = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

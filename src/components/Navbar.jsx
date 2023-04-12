@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 import Icon from './icon/Icon';
@@ -8,15 +8,26 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Menu } from '@headlessui/react';
 import ModalCartPage from '../pages/ModalCartPage';
+import { getCart } from '../api/cartAPI';
 
 const Navbar = (props) => {
   const [cartVisible, setCartVisible] = useState(false);
+  const [itemInCart, setItemInCart] = useState(0);
   const numOfProductsInCart = useSelector((state) => state.numOfProductsInCart);
   const isLoggedin = useSelector((state) => state.isLoggedin ?? false);
   const user = useSelector((state) => state.user);
   const history = useNavigate();
   const toggleCart = () => {
     setCartVisible(!cartVisible);
+  };
+
+  const fetchCart = async () => {
+    try {
+      const cart = await getCart();
+      setItemInCart(cart ? cart?.data?.detail?.cart_list.length : 0);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const menu = [{
@@ -41,6 +52,11 @@ const Navbar = (props) => {
     path: '/contact',
     isActive: true,
   }];
+
+  useEffect(() => {
+    fetchCart();
+  }, [numOfProductsInCart]);
+
   return (
     <>
       <nav>
@@ -53,7 +69,7 @@ const Navbar = (props) => {
           <h1 className="text-4xl sm:text-7xl font-patrick-hand">{'happy kids'}</h1>
         </div>
         <div className="w-full sm:h-[10vh] h-[15vh] bg-white grid sm:grid-cols-3 grid-cols-2">
-          <div className="col-span-2 col-span-1 w-full h-full flex sm:gap-20 gap-5 justify-center items-center">
+          <div className="col-span-2  w-full h-full flex sm:gap-20 gap-5 justify-center items-center">
             {menu
               .filter((e) => e.isActive)
               .map((e) => (
@@ -151,7 +167,7 @@ const Navbar = (props) => {
               <button onClick={() => toggleCart()} className="flex gap-2 items-center">
                 <Icon type={IconType.cart} />
                 <div className="w-[18px] aspect-square rounded-full bg-black text-white flex items-center justify-center text-[10px]">
-                  {numOfProductsInCart ?? 0}
+                  {itemInCart ?? 0}
                 </div>
               </button>
             </div>

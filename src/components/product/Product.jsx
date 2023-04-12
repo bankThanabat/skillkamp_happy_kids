@@ -30,13 +30,15 @@ const Product = ({ dat }) => {
   return (
     <>
       <div
-        className="w-[100%] px-3 py-2 flex flex-col"
+        className={`w-[100%] px-3 py-2 flex flex-col ${hover ? 'shadow-lg' : ''}`}
         onMouseOver={() => {
           setHover(true);
         }}
         onMouseOut={() => {
           setHover(false);
         }}
+
+        onClick={openModal}
       >
         <div className="relative flex flex-col items-center justify-center">
           <p className="absolute top-0 left-0 bg-[#D2461C] px-2 py-1 text-white text-[14px] ">

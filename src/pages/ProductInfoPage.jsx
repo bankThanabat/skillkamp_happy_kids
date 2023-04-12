@@ -2,11 +2,12 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AddtoCart from '../components/buttons/AddtoCart';
 import RelatedProduct from '../components/product/RelatedProduct';
-import { getProductsBySKU } from '../api/productAPI';
+import { getProductsBySKU, getProductsNewArrivals } from '../api/productAPI';
 import { rgbToTailwindClass } from '../utill/utill';
 import { addItemToCart } from '../api/cartAPI';
 import Icon from '../components/icon/Icon';
 import { IconType } from '../enum/icon.enum';
+import { useDispatch } from 'react-redux';
 
 const ProductInfoPage = () => {
   const { sku } = useParams();
@@ -15,6 +16,8 @@ const ProductInfoPage = () => {
   const inputReference = useRef(null);
   const [showRefund, setShowRefund] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [relatedProduct, setRelatedProduct] = useState([]);
+  const dispatch = useDispatch();
 
   const refundToggle = () => {
     setShowRefund(!showRefund);
@@ -31,11 +34,22 @@ const ProductInfoPage = () => {
     try {
       if (sku) {
         const response = await getProductsBySKU({ sku });
-        setProduct(response?.data?.detail?.data?.catalog?.product ?? []);
+        const respProduct = response?.data?.detail?.data?.catalog?.product;
+        setProduct({
+          ...respProduct,
+          qty: 1,
+          color: respProduct?.options[0]?.selections[0]?.key,
+          size: respProduct?.options[1]?.selections[0]?.value,
+        } ?? []);
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const fetchNewArraivalProducts = async () => {
+    const response = await getProductsNewArrivals();
+    setRelatedProduct(response?.data?.detail?.data?.catalog?.category?.productsWithMetaData?.list ?? []);
   };
 
   const onSelectColor = (color) => {
@@ -58,7 +72,7 @@ const ProductInfoPage = () => {
         qty: product?.qty,
         ...product,
       });
-      history('/home');
+      dispatch({ type: actionTypes.add_cart_item });
     } catch (error) {
       console.log(error);
     }
@@ -66,12 +80,8 @@ const ProductInfoPage = () => {
 
   useEffect(() => {
     fetchProductBySku();
+    fetchNewArraivalProducts();
   }, []);
-
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
-
 
   return (
     <div className="flex flex-col mx-[20vw] mt-8" ref={inputReference}>
@@ -81,8 +91,7 @@ const ProductInfoPage = () => {
       <div className='grid grid-cols-2 my-20 gap-4'>
         <div>
           <img
-            src="/src/assets/products/Product10.png"
-            alt={product?.name ?? ''}
+            src={product?.media && (product?.media[0]?.fullUrl ?? '')}
             className=""
           />
           <p className="text-sm font-light">{product?.description ?? ''}</p>
@@ -127,19 +136,29 @@ const ProductInfoPage = () => {
           </div>
           <div className='flex flex-col gap-2'>
             <p className="text-neutral-600">Quantity</p>
-            <input type='number' className='px-2 py-3 border focus:ring-0 w-1/5' value={product?.qty ?? 1} />
+            <input
+              type='number' className='px-2 py-3 border focus:ring-0 w-1/5'
+              value={product?.qty ?? 1}
+              onChange={(e) => setProduct({ ...product, qty: e.target.value })}
+            />
           </div>
           <div className='gap-1 flex flex-col'>
             <div className='flex flex-row gap-2'>
               <div
                 className='w-[90%]'
-                onClick={onAddToCart}
+                onClick={async () => {
+                  await onAddToCart();
+                  history('/home');
+                }}
               ><AddtoCart IsDarkMode={true} />
               </div>
               <div className='flex bg-white border-red-500 border w-[10%] justify-center items-center' ><Icon type={IconType.heartOutline} className={'text-red-500 text-2xl'} /></div>
             </div>
             <button
-              onClick={() => history('/shopping-cart')}
+              onClick={async () => {
+                await onAddToCart();
+                history('/shopping-cart');
+              }}
               className='w-full py-2 text-white font-light text-center bg-[#D2461C]'>Buy Now</button>
           </div>
           <div className='flex flex-col gap-2 text-gray-700'>
@@ -168,7 +187,7 @@ const ProductInfoPage = () => {
       </div>
       <div className='flex flex-col justify-center w-full'>
         <h2 className='text-center text-3xl w-full'>Related Product</h2>
-        <RelatedProduct className='flex my-20' />
+        <RelatedProduct className='flex my-20' products={relatedProduct} />
       </div>
     </div>
 

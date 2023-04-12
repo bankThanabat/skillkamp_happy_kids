@@ -5,10 +5,9 @@ import 'react-multi-carousel/lib/styles.css';
 import RelatedProductCard from './RelatedProductCard';
 import { IconType } from '../../enum/icon.enum';
 import Icon from '../icon/Icon';
-import { Dataproduct } from './ProductList';
 import PropTypes from 'prop-types';
 
-const RelatedProduct = () => {
+const RelatedProduct = ({ products }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 4500, min: 1024 },
@@ -66,7 +65,7 @@ const RelatedProduct = () => {
         customTransition="all .5"
         containerClass="carousel-container px-10"
       >
-        {Dataproduct.filter((e) => e.isActive).map((e) => (
+        {products && products.map((e) => (
           <RelatedProductCard key={e.id} dat={e} />
         ))}
       </Carousel>
@@ -75,7 +74,8 @@ const RelatedProduct = () => {
 };
 
 RelatedProduct.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  products: PropTypes.array.isRequired,
 };
 
 export default RelatedProduct;

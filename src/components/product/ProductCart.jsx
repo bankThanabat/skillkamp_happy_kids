@@ -3,7 +3,7 @@ import Icon from '../icon/Icon';
 import { IconType } from '../../enum/icon.enum';
 import PropTypes from 'prop-types';
 
-const ProductCart = ({ product }) => {
+const ProductCart = ({ product, onDecreaseQty, onINcreaseQty }) => {
   const calPrice = () => (parseFloat(product?.price) * parseFloat(product?.qty)).toFixed(2);
 
   return (
@@ -20,9 +20,9 @@ const ProductCart = ({ product }) => {
       <div className='flex h-full w-[35%] justify-between'>
         <div className='h-full'>
           <div className='flex px-2 py-1 border text-sm font-light justify-between items-center  gap-4 '>
-            <Icon type={IconType.minus} onClick={() => onDecreaseQty(controledProduct)} />
+            <Icon type={IconType.minus} onClick={() => onDecreaseQty(product)} />
             {product?.qty ?? 1}
-            <Icon type={IconType.plus} onClick={() => onINcreaseQty(controledProduct)} />
+            <Icon type={IconType.plus} onClick={() => onINcreaseQty(product)} />
           </div>
         </div>
         <div className='h-full'>
@@ -40,6 +40,8 @@ const ProductCart = ({ product }) => {
 
 ProductCart.propTypes = {
   product: PropTypes.object.isRequired,
+  onDecreaseQty: PropTypes.func.isRequired,
+  onINcreaseQty: PropTypes.func.isRequired,
 };
 
 export default ProductCart;

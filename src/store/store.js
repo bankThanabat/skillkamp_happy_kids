@@ -14,13 +14,13 @@ const reducer = (state = initialState, action) => {
     case actionTypes.add_cart_item:
       return {
         ...state,
-        cart: [...state.cart, action.payload],
-        numOfProductsInCart: state.numOfProductsInCart + 1,
+        numOfProductsInCart: (state.numOfProductsInCart + 1) <= 0 ? 0 : (state.numOfProductsInCart + 1),
       };
     case actionTypes.remove_cart_item:
       return {
         ...state,
         cart: state.cart.filter((e) => e.id !== action.payload),
+        numOfProductsInCart: (state.numOfProductsInCart - 1) <= 0 ? 0 : (state.numOfProductsInCart - 1),
       };
 
     case actionTypes.update_cart_item:

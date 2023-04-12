@@ -4,63 +4,62 @@ import PropTypes from 'prop-types';
 import Icon from '../components/icon/Icon';
 import { IconType } from '../enum/icon.enum';
 import ProductControl from '../components/product/ProductControl';
-import { useDispatch, useSelector } from 'react-redux';
+import { getCart, removeItemFromCart, updateCartItem } from '../api/cartAPI';
+import { useDispatch } from 'react-redux';
 import { actionTypes } from '../store/action.type';
-import { removeItemFromCart, updateCartItem } from '../api/cartAPI';
+import { useNavigate } from 'react-router-dom';
 
 const ModalCartPage = (props) => {
   const { hideCart } = props;
-  const [total, setTotal] = React.useState(parseFloat(0));
-  const cart = useSelector((state) => state.cart ?? []);
+  const [cart, setCart] = React.useState({});
   const dispatch = useDispatch();
-  console.log('cart', cart);
+  const history = useNavigate();
 
-  const onUpdateCartItem = async (product) => {
-    await updateCartItem({ ...product });
-  };
-
-  const onRemoveItemCart = async (product) => {
-    await removeItemFromCart({ ...product });
-  };
-
-  const onINcreaseQty = (product) => {
+  const fetchCart = async () => {
     try {
-      onUpdateCartItem(product);
-      dispatch({ type: actionTypes.update_cart_item, payload: { ...product, qty: parseInt(product?.qty ?? 1) + 1 } });
+      const cart = await getCart();
+      setCart(cart ? cart?.data?.detail : {});
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onDecreaseQty = (product) => {
+  const onINcreaseQty = async (product) => {
     try {
-      onUpdateCartItem(product);
-      dispatch({ type: actionTypes.update_cart_item, payload: { ...product, qty: parseInt(product?.qty ?? 1) - 1 } });
+      const cart = await updateCartItem({ ...product, qty: parseInt(product.qty) + 1 });
+      setCart(cart ? { ...cart?.data?.detail } : {});
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onRemoveItem = (product) => {
+  const onDecreaseQty = async (product) => {
     try {
-      onRemoveItemCart(product);
-      dispatch({ type: actionTypes.remove_cart_item, payload: product?.id });
+      let cart = {};
+      if (parseInt(product.qty) - 1 <= 0) {
+        cart = await removeItemFromCart(product);
+      } else {
+        cart = await updateCartItem({ ...product, qty: parseInt(product.qty) - 1 });
+      }
+      setCart(cart ? { ...cart?.data?.detail } : {});
     } catch (error) {
       console.log(error);
     }
   };
 
-  const calSubtotal = () => {
-    const total = cart.reduce((acc, item) => {
-      return (acc + (parseFloat(item?.qty ?? 1) * parseFloat(item?.price ?? 0)));
-    }, 0);
-    setTotal(total.toFixed(2));
+  const onRemoveItem = async (product) => {
+    try {
+      const cart = await removeItemFromCart(product);
+      setCart(cart ? { ...cart?.data?.detail } : {});
+      dispatch({ type: actionTypes.remove_cart_item });
+    } catch (error) {
+      console.log(error);
+    }
   };
-
 
   useEffect(() => {
-    calSubtotal();
-  }, [cart]);
+    fetchCart();
+  }, []);
 
 
   return (
@@ -74,8 +73,8 @@ const ModalCartPage = (props) => {
         </header>
         <body className="flex flex-wrap flex-col justify-end h-[80%] text-black">
           <div className='h-[80%] overflow-scroll gap-10 flex flex-col  px-10 '>
-            {cart && cart.map((item) => (
-              <div className='relative '>
+            {cart?.cart_list && cart.cart_list.map((item, index) => (
+              <div className='relative ' key={index}>
                 <Icon
                   type={IconType.minus}
                   onClick={() => onRemoveItem(item)}
@@ -91,10 +90,15 @@ const ModalCartPage = (props) => {
 
           </div>
           <div className="text-2xl ml-6">Subtotal</div>
-          <div className="text-2xl ml-6 mb-6">{`${parseFloat(total ?? 0).toFixed(2).toString()}`}$</div>
+          <div className="text-2xl ml-6 mb-6">{cart?.sub_total ?? ''}$</div>
         </body>
         <footer className="flex  h-[10%] justify-center items-center ">
-          <button className="flex items-center bg-gray-800 text-primary-main2 justify-center   h-10  w-[80%]  ">
+          <button
+            onClick={() => {
+              hideCart();
+              history('/shopping-cart');
+            }}
+            className="flex items-center bg-gray-800 text-primary-main2 justify-center   h-10  w-[80%]  ">
             View Cart
           </button>
         </footer>

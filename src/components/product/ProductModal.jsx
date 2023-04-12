@@ -39,6 +39,7 @@ const ProductModal = ({ pdata, closeModal }) => {
       size: size,
       qty: product?.qty ?? 1,
     });
+    dispatch({ type: actionTypes.add_cart_item });
   };
 
   useEffect(() => {

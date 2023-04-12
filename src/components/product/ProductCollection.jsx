@@ -29,7 +29,7 @@ const ProductCollection = ({ dat }) => {
     Modal.setAppElement('body');
   }, []);
   return (
-    <div className="w-[95%]">
+    <div className="w-[95%] hover:shadow-lg" onClick={openModal}>
       <div className="relative flex flex-col items-center justify-center">
         <img className="" src={dat?.media[0]?.url ?? ''} />
       </div>
@@ -48,7 +48,7 @@ const ProductCollection = ({ dat }) => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <ProductModal pdata={dat} />
+        <ProductModal pdata={dat} closeModal={closeModal} />
         <div className="grid grid-cols-2">
           <div>{/* <p>View more details</p> */}</div>
         </div>
