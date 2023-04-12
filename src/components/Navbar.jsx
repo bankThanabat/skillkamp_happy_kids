@@ -172,8 +172,77 @@ const Navbar = (props) => {
               </button>
             </div>
           </div>
-          <div className="sm:hidden flex items-center justify-end mr-5">
-            <FiMenu size={24} />
+
+          <div className='flex justify-end items-center'>
+            <Menu as="div" className="z-10 ">
+              <Menu.Button>
+                <div className="sm:hidden flex items-center justify-center mr-5">
+                  <FiMenu size={24} className='cursor-pointer' />
+                </div>
+              </Menu.Button>
+              <Menu.Items className="mt-2 border bg-white px-3 py-2 absolute right-8 w-auto flex flex-col ">
+                <Menu.Item>
+                  <p
+                    className="hover:text-primary-main5"
+                    onClick={() => {
+                      history('/order', { state: { defaultTap: 1 } });
+                    }}
+                  >
+                    My Orders
+                  </p>
+                </Menu.Item>
+                <Menu.Item>
+                  <p
+                    className="hover:text-primary-main5"
+                    onClick={() => {
+                      history('/order', { state: { defaultTap: 2 } });
+                    }}
+                  >
+                    My Address
+                  </p>
+                </Menu.Item>
+                <Menu.Item>
+                  <p
+                    className="hover:text-primary-main5"
+                    onClick={() => {
+                      history('/order', { state: { defaultTap: 3 } });
+                    }}
+                  >
+                    My Wallet
+                  </p>
+                </Menu.Item>
+                <Menu.Item>
+                  <p
+                    className="hover:text-primary-main5"
+                    onClick={() => {
+                      history('/order', { state: { defaultTap: 4 } });
+                    }}
+                  >
+                    My Wishlist
+                  </p>
+                </Menu.Item>
+                <Menu.Item>
+                  <p
+                    className="hover:text-primary-main5"
+                    onClick={() => {
+                      history('/order', { state: { defaultTap: 5 } });
+                    }}
+                  >
+                    My Subscriptions
+                  </p>
+                </Menu.Item>
+                <Menu.Item>
+                  <p
+                    className="hover:text-primary-main5"
+                    onClick={() => {
+                      history('/order', { state: { defaultTap: 6 } });
+                    }}
+                  >
+                    My Accounts
+                  </p>
+                </Menu.Item>
+              </Menu.Items>
+            </Menu>
           </div>
         </div>
       </nav>
