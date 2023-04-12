@@ -6,12 +6,12 @@ This project is a React application built with the Vite build tool.
 ## Installation
 To install the dependencies, run:
 
-npm install
+`npm install`
 Development
 To start the development server, run:
 
 ## Usage
-npm run dev
+`npm run dev`
 This will start the server at http://localhost:3000.
 
 Demo
