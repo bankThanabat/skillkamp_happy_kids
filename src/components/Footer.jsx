@@ -1,8 +1,8 @@
 /* eslint-disable indent */
 import React from 'react';
-import { ReactComponent as FbLogo } from '../assets/icons/social icons/facebook-svgrepo-com.svg';
-import { ReactComponent as PrLogo } from '../assets/icons/social icons/pinterest-svgrepo-com.svg';
-import { ReactComponent as IgLogo } from '../assets/icons/social icons/instagram-svgrepo-com.svg';
+import { ReactComponent as FbLogo } from '../assets/icons/Social icons/facebook-svgrepo-com.svg';
+import { ReactComponent as PrLogo } from '../assets/icons/Social icons/pinterest-svgrepo-com.svg';
+import { ReactComponent as IgLogo } from '../assets/icons/Social icons/instagram-svgrepo-com.svg';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
